@@ -1,0 +1,36 @@
+---
+- !ruby/object:User
+  name: Name
+  difficulty: 0
+  hints_used: 0
+  attempts_used: 0
+  hints_total: 2
+  attempts_total: 15
+- !ruby/object:User
+  name: Name
+  difficulty: 0
+  hints_used: 0
+  attempts_used: 0
+  hints_total: 2
+  attempts_total: 15
+- !ruby/object:User
+  name: Name
+  difficulty: 0
+  hints_used: 0
+  attempts_used: 0
+  hints_total: 2
+  attempts_total: 15
+- !ruby/object:User
+  name: Name
+  difficulty: 0
+  hints_used: 0
+  attempts_used: 0
+  hints_total: 2
+  attempts_total: 15
+- !ruby/object:User
+  name: Name
+  difficulty: 0
+  hints_used: 0
+  attempts_used: 0
+  hints_total: 2
+  attempts_total: 15

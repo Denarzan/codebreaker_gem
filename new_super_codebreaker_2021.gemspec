@@ -14,5 +14,4 @@ Gem::Specification.new do |spec|
   spec.description   = "Game where you need to guess the secret code"
   spec.homepage      = "https://rubygems.org/gems/new_super_codebreaker_2021"
   spec.required_ruby_version = ">= 2.7.0"
-
 end
