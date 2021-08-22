@@ -14,7 +14,7 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 
 Layout/TrailingEmptyLines:
-  FinalNewline:  true
+  Enabled: true
 
 Style/Documentation:
   Enabled: false
