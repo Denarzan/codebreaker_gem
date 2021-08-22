@@ -13,6 +13,9 @@ Style/StringLiteralsInInterpolation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Layout/TrailingEmptyLines:
+  FinalNewline:  true
+
 Style/Documentation:
   Enabled: false
 
