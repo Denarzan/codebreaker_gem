@@ -5,6 +5,7 @@ require_relative "new_super_codebreaker_2021/version"
 require_relative "validate"
 require_relative "show_content"
 require_relative "db_methods"
+require_relative "user"
 
 module NewSuperCodebreaker2021
   class Error < StandardError; end
