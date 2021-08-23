@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 require_relative "lib/new_super_codebreaker_2021/version"
+require 'rake'
 
 Gem::Specification.new do |spec|
   spec.name          = "new_super_codebreaker_2021"
   spec.version       = NewSuperCodebreaker2021::VERSION
   spec.authors       = ["Nazar Dakhno"]
   spec.email         = ["dakhnonazar@gmail.com"]
-  spec.files         = ["lib/new_super_codebreaker_2021.rb"]
+  spec.files = FileList["lib/**/*.rb",
+                        "bin/*",
+                        "[A-Z]*"].to_a
   spec.license       = "MIT"
 
   spec.summary       = "New game codebreaker!"
