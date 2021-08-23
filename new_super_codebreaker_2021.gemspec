@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "lib/new_super_codebreaker_2021/version"
-require 'rake'
+require "rake"
 
 Gem::Specification.new do |spec|
   spec.name          = "new_super_codebreaker_2021"
