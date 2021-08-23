@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = NewSuperCodebreaker2021::VERSION
   spec.authors       = ["Nazar Dakhno"]
   spec.email         = ["dakhnonazar@gmail.com"]
-  spec.files         = ["lib"]
+  spec.files         = ["lib/new_super_codebreaker_2021.rb"]
   spec.license       = "MIT"
 
   spec.summary       = "New game codebreaker!"
@@ -18,5 +18,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.10.0"
   spec.add_development_dependency "rubocop", "~> 1.7"
-  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov", "~> 0.21.2"
 end
