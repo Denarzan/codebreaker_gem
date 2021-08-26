@@ -4,26 +4,6 @@ require_relative "../lib/user"
 
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }
-  context "#show_rules" do
-    it "should return rules of the game" do
-      rules = "Never give up"
-      expect(game.show_rules(rules)).to eq("Never give up")
-    end
-  end
-
-  context "#show_goodbye" do
-    it "should return goodbye message" do
-      goodbye = "Goodbye"
-      expect(game.show_goodbye(goodbye)).to eq("Goodbye")
-    end
-  end
-
-  context "#show_error" do
-    it "should return given error" do
-      error = "Error"
-      expect(game.show_error(error)).to eq("Error")
-    end
-  end
 
   context "#show_stats" do
     let(:file) { "test.yml" }

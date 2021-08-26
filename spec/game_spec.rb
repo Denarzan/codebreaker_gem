@@ -116,11 +116,17 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context "#take_hint" do
     let(:user) { User.new("User1", 1) }
-    let(:code) { [2, 3, 4, 5] }
+    let(:code) { [5, 2, 6, 6] }
     let(:used_hints) { [] }
 
     it "returns integer" do
       expect(game.take_hint(user, code, used_hints).class).to eq(Integer)
+    end
+
+    it "should not change the code" do
+      old_code = code
+      game.take_hint(user, code, used_hints)
+      expect(code).to eq(old_code)
     end
 
     it "returns one number from code" do
