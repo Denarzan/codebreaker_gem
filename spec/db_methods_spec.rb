@@ -11,6 +11,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     after do
       File.delete(file)
     end
+
     it "should create file if it doesn't exist" do
       game.save(user, file)
       expect(File.file?(file)).to eq(true)

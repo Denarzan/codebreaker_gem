@@ -22,6 +22,9 @@ Style/Documentation:
 Layout/LineLength:
   Max: 120
 
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
 Metrics/BlockLength:
   Exclude:
     - 'Gemfile'

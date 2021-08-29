@@ -9,7 +9,7 @@ module Validate
 
   def validate_user_code(us_code)
     arr_code = check_splitting(us_code)
-    if arr_code && check_length?(arr_code) && check_numbers?(arr_code)
+    if valid_number?(arr_code)
       arr_code
     else
       false
@@ -17,6 +17,10 @@ module Validate
   end
 
   private
+
+  def valid_number?(arr_code)
+    arr_code && check_length?(arr_code) && check_numbers?(arr_code)
+  end
 
   def check_splitting(code)
     code.chars.map!(&:to_i) if integer?(code)
@@ -32,7 +36,7 @@ module Validate
 
   def check_numbers?(code)
     code.each do |number|
-      return false if number < 1 || number > 6
+      return if number < 1 || number > 6
     end
     true
   end

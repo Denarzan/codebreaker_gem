@@ -80,6 +80,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     end
 
     let(:arr) { game.generate_code }
+
     it "should have numbers between 1 and 6" do
       expect(arr[0]).to be_between(1, 6)
       expect(arr[1]).to be_between(1, 6)
