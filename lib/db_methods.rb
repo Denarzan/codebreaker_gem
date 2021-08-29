@@ -10,7 +10,7 @@ module DBMethods
   end
 
   def load_file(file)
-    YAML.load_file(file) || []
+    YAML.load_file(file)
   rescue Errno::ENOENT
     []
   end
