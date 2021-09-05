@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
 module DBMethods
   def save(user, file)
     rating = load_file(file)
     rating.push(user)
-    File.open(file, "w") do |filename|
+    File.open(file, 'w') do |filename|
       YAML.dump(rating, filename)
     end
   end

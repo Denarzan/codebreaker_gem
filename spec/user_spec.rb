@@ -1,46 +1,46 @@
-require "spec_helper"
-require_relative "../lib/user"
+require 'spec_helper'
+require_relative '../lib/user'
 
 RSpec.describe User do
-  context "#initialize" do
-    it "sets attempts and hints automatically" do
-      user = User.new("User", 1)
-      expect(defined? user.attempts_total).to eq("method")
-      expect(defined? user.hints_total).to eq("method")
+  context '#initialize' do
+    it 'sets attempts and hints automatically' do
+      user = User.new('User', 1)
+      expect(defined? user.attempts_total).to eq('method')
+      expect(defined? user.hints_total).to eq('method')
     end
 
-    it "sets attempts to 15 and hints to 2 at 0 level" do
-      user = User.new("User", 0)
+    it 'sets attempts to 15 and hints to 2 at 0 level' do
+      user = User.new('User', 0)
       expect(user.attempts_total).to eq(15)
       expect(user.hints_total).to eq(2)
     end
 
-    it "sets attempts to 10 and hints to 1 at 1 level" do
-      user = User.new("User", 1)
+    it 'sets attempts to 10 and hints to 1 at 1 level' do
+      user = User.new('User', 1)
       expect(user.attempts_total).to eq(10)
       expect(user.hints_total).to eq(1)
     end
 
-    it "sets attempts to 5 and hints to 1 at 2 level" do
-      user = User.new("User", 2)
+    it 'sets attempts to 5 and hints to 1 at 2 level' do
+      user = User.new('User', 2)
       expect(user.attempts_total).to eq(5)
       expect(user.hints_total).to eq(1)
     end
 
-    it "sets used attempts and hints to 0 at the beginning" do
-      user = User.new("User", 2)
+    it 'sets used attempts and hints to 0 at the beginning' do
+      user = User.new('User', 2)
       expect(user.attempts_used).to eq(0)
       expect(user.hints_used).to eq(0)
     end
 
-    it "sets attempts and hints to nil unknown level" do
-      user = User.new("User", 5)
+    it 'sets attempts and hints to nil unknown level' do
+      user = User.new('User', 5)
       expect(user.attempts_total).to eq(nil)
       expect(user.hints_total).to eq(nil)
     end
 
-    it "can change used attempts and hints" do
-      user = User.new("User", 0)
+    it 'can change used attempts and hints' do
+      user = User.new('User', 0)
       attempts_before = user.attempts_used
       hints_before = user.hints_used
       attempts_after = user.attempts_used += 3
@@ -50,10 +50,10 @@ RSpec.describe User do
     end
 
     it "can't change other fields" do
-      user = User.new("User", 0)
+      user = User.new('User', 0)
 
       expect { user.attempts_total += 1 }.to raise_error(NoMethodError)
-      expect { user.name = "John" }.to raise_error(NoMethodError)
+      expect { user.name = 'John' }.to raise_error(NoMethodError)
     end
   end
 end

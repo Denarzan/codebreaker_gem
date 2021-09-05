@@ -1,8 +1,8 @@
-require "yaml"
-require_relative "validate"
-require_relative "show_content"
-require_relative "db_methods"
-require_relative "user"
+require 'yaml'
+require_relative 'validate'
+require_relative 'show_content'
+require_relative 'db_methods'
+require_relative 'user'
 module NewSuperCodebreaker2021
   class Game
     include Validate
@@ -15,12 +15,12 @@ module NewSuperCodebreaker2021
     AFTER_GAME_COMMANDS = %i[start save exit].freeze
     YES_NO_COMMANDS = %i[yes no].freeze
 
-    def chose_com(command)
+    def chose_command(command)
       START_COMMANDS.include?(command.to_sym) ? command.to_sym : false
     end
 
     def take_name(input_name)
-      if input_name == "exit"
+      if input_name == 'exit'
         :exit
       else
         validate_name(input_name)
@@ -36,7 +36,12 @@ module NewSuperCodebreaker2021
     end
 
     def user_guess(code)
-      GUESS_COMMANDS.include?(code.to_s.to_sym) ? code.to_s.to_sym : validate_user_code(code)
+      if code.to_i != 0
+        validate_user_code(code)
+      elsif GUESS_COMMANDS.include?(code.to_sym)
+        code.to_sym
+      else false
+      end
     end
 
     def take_hint(user, code, used_hints)
@@ -50,11 +55,17 @@ module NewSuperCodebreaker2021
     end
 
     def after_game_commands(command)
-      AFTER_GAME_COMMANDS.include?(command.to_sym) ? command.to_sym : false
+      if command.to_i.zero? && AFTER_GAME_COMMANDS.include?(command.to_sym)
+        command.to_sym
+      else false
+      end
     end
 
     def attempt_to_start(command)
-      YES_NO_COMMANDS.include?(command.to_sym) ? command.to_sym : false
+      if command.to_i.zero? && YES_NO_COMMANDS.include?(command.to_sym)
+        command.to_sym
+      else false
+      end
     end
 
     def compare_codes(secret_code, user_code)
@@ -69,7 +80,7 @@ module NewSuperCodebreaker2021
       u_char = []
       user_code.each_index do |i|
         if secret_code[i] == user_code[i]
-          matches.unshift("+")
+          matches.unshift('+')
           u_char << user_code[i]
         end
       end
@@ -78,7 +89,7 @@ module NewSuperCodebreaker2021
 
     def number_in_secret_code(secret_code, user_code, matches, u_char)
       user_code.each do |element|
-        matches.push("-") if secret_code.include?(element) && !u_char.include?(element)
+        matches.push('-') if secret_code.include?(element) && !u_char.include?(element)
       end
       matches
     end
