@@ -67,19 +67,19 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     end
   end
 
-  context '#generate_code' do
+  context '#initialize' do
     it 'should generate array with code' do
-      expect(game.generate_code.is_a?(Array)).to eq(true)
+      expect(game.instance_variable_get(:@code).is_a?(Array)).to eq(true)
     end
     it 'should have integers in array' do
-      expect(game.generate_code.map { |element| element.is_a? Integer }).to eq([true, true, true, true])
+      expect(game.instance_variable_get(:@code).map { |element| element.is_a? Integer }).to eq([true, true, true, true])
     end
 
     it 'should create array with length 4' do
-      expect(game.generate_code.length).to eq(4)
+      expect(game.instance_variable_get(:@code).length).to eq(4)
     end
 
-    let(:arr) { game.generate_code }
+    let(:arr) { game.instance_variable_get(:@code) }
 
     it 'should have numbers between 1 and 6' do
       expect(arr[0]).to be_between(1, 6)
@@ -154,30 +154,30 @@ RSpec.describe NewSuperCodebreaker2021::Game do
   end
 
   context '#compare_codes' do
-    let(:secret_code) { [1, 3, 5, 6] }
+    before { game.instance_variable_set(:@code, [1, 3, 5, 6]) }
     it 'returns array' do
       user_code = [1, 2, 3, 4]
-      expect(game.compare_codes(secret_code, user_code).class).to eq(Array)
+      expect(game.compare_codes(user_code).class).to eq(Array)
     end
 
     it 'returns empty array if there is no match' do
       user_code = [2, 4, 4, 2]
-      expect(game.compare_codes(secret_code, user_code)).to be_empty
+      expect(game.compare_codes(user_code)).to be_empty
     end
 
     it 'returns pluses for each number on the right place' do
       user_code = [2, 3, 6, 5]
-      expect(game.compare_codes(secret_code, user_code).include?('+')).to eq(true)
+      expect(game.compare_codes(user_code).include?('+')).to eq(true)
     end
 
     it 'returns minuses for each number in secret code but on wrong position' do
       user_code = [3, 1, 5, 6]
-      expect(game.compare_codes(secret_code, user_code).include?('-')).to eq(true)
+      expect(game.compare_codes(user_code).include?('-')).to eq(true)
     end
 
     it 'returns 4 pluses if user guess the secret code' do
       user_code = [1, 3, 5, 6]
-      expect(game.compare_codes(secret_code, user_code)).to eq(%w[+ + + +])
+      expect(game.compare_codes(user_code)).to eq(%w[+ + + +])
     end
   end
 

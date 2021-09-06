@@ -9,14 +9,18 @@ module NewSuperCodebreaker2021
     include ShowContent
     include DBMethods
 
+    def initialize
+      @code = generate_code
+    end
+
+    GUESS_COMMANDS = %i[hint rules exit].freeze
     START_COMMANDS = %i[start rules stats exit].freeze
     DIFFICULTY_COMMANDS = %i[easy medium hell exit].freeze
-    GUESS_COMMANDS = %i[hint rules exit].freeze
     AFTER_GAME_COMMANDS = %i[start save exit].freeze
     YES_NO_COMMANDS = %i[yes no].freeze
 
     def chose_command(command)
-      START_COMMANDS.include?(command.to_sym) ? command.to_sym : false
+      check_input(command, START_COMMANDS)
     end
 
     def take_name(input_name)
@@ -28,11 +32,7 @@ module NewSuperCodebreaker2021
     end
 
     def chose_difficulty(difficulty)
-      DIFFICULTY_COMMANDS.include?(difficulty.to_sym) ? difficulty.to_sym : false
-    end
-
-    def generate_code
-      Array.new(4) { rand(1..6) }
+      check_input(difficulty, DIFFICULTY_COMMANDS)
     end
 
     def user_guess(code)
@@ -55,31 +55,25 @@ module NewSuperCodebreaker2021
     end
 
     def after_game_commands(command)
-      if command.to_i.zero? && AFTER_GAME_COMMANDS.include?(command.to_sym)
-        command.to_sym
-      else false
-      end
+      check_input(command, AFTER_GAME_COMMANDS)
     end
 
     def attempt_to_start(command)
-      if command.to_i.zero? && YES_NO_COMMANDS.include?(command.to_sym)
-        command.to_sym
-      else false
-      end
+      check_input(command, YES_NO_COMMANDS)
     end
 
-    def compare_codes(secret_code, user_code)
-      matches, u_char = number_on_right_place(secret_code, user_code)
-      number_in_secret_code(secret_code, user_code, matches, u_char)
+    def compare_codes(user_code)
+      matches, u_char = number_on_right_place(user_code)
+      number_in_secret_code(user_code, matches, u_char)
     end
 
     private
 
-    def number_on_right_place(secret_code, user_code)
+    def number_on_right_place(user_code)
       matches = []
       u_char = []
       user_code.each_index do |i|
-        if secret_code[i] == user_code[i]
+        if @code[i] == user_code[i]
           matches.unshift('+')
           u_char << user_code[i]
         end
@@ -87,11 +81,15 @@ module NewSuperCodebreaker2021
       [matches, u_char]
     end
 
-    def number_in_secret_code(secret_code, user_code, matches, u_char)
+    def number_in_secret_code(user_code, matches, u_char)
       user_code.each do |element|
-        matches.push('-') if secret_code.include?(element) && !u_char.include?(element)
+        matches.push('-') if @code.include?(element) && !u_char.include?(element)
       end
       matches
+    end
+
+    def generate_code
+      Array.new(4) { rand(1..6) }
     end
   end
 end

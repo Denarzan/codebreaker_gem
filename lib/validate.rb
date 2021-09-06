@@ -16,6 +16,13 @@ module Validate
     end
   end
 
+  def check_input(input, command_list)
+    if input.to_i.zero? && command_list.include?(input.to_sym)
+      input.to_sym
+    else false
+    end
+  end
+
   private
 
   def valid_number?(arr_code)
