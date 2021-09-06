@@ -7,7 +7,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context '#show_stats' do
     let(:file) { 'test.yml' }
-    it 'should return sorted statistic by difficult, used attempts and used hints' do
+    it 'should return sorted statistic by difficult, used attempts and used hints in table' do
       user1 = User.new('User1', 0)
       user2 = User.new('User2', 0)
       user2.attempts_used += 5
@@ -15,7 +15,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
       game.save(user1, file)
       game.save(user2, file)
       game.save(user3, file)
-      expect(game.show_stats(file).to_yaml).to eq([user3, user1, user2].to_yaml)
+      expect(game.show_stats(file).is_a?(Terminal::Table)).to eq(true)
       File.delete(file)
     end
 
