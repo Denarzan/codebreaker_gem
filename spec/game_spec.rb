@@ -121,35 +121,35 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     let(:used_hints) { [] }
 
     it 'returns integer' do
-      expect(game.take_hint(user, code, used_hints).class).to eq(Integer)
+      expect(game.take_hint(user, used_hints).class).to eq(Integer)
     end
 
     it 'should not change the code' do
       old_code = code
-      game.take_hint(user, code, used_hints)
+      game.take_hint(user, used_hints)
       expect(code).to eq(old_code)
     end
 
     it 'returns one number from code' do
-      expect(code.include?(game.take_hint(user, code, used_hints))).to eq(true)
+      expect(code.include?(game.take_hint(user, used_hints))).to eq(true)
     end
 
     it 'returns different numbers after 2 hints' do
-      hint = game.take_hint(user, code, used_hints)
+      hint = game.take_hint(user, used_hints)
       used_hints.push(hint)
-      expect(game.take_hint(user, code, used_hints)).not_to eq(hint)
+      expect(game.take_hint(user, used_hints)).not_to eq(hint)
     end
 
     it 'increases used hints at user' do
       hints_before_test = user.hints_used
-      game.take_hint(user, code, used_hints)
+      game.take_hint(user, used_hints)
       expect(user.hints_used).to be > hints_before_test
     end
 
     it 'returns false if user have used all hints' do
-      game.take_hint(user, code, used_hints)
-      game.take_hint(user, code, used_hints)
-      expect(game.take_hint(user, code, used_hints)).to eq(false)
+      game.take_hint(user, used_hints)
+      game.take_hint(user, used_hints)
+      expect(game.take_hint(user, used_hints)).to eq(false)
     end
   end
 

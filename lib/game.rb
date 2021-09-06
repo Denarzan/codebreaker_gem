@@ -44,11 +44,12 @@ module NewSuperCodebreaker2021
       end
     end
 
-    def take_hint(user, code, used_hints)
+    def take_hint(user, used_hints)
+      code_copy = @code.dup
       if user.hints_total > user.hints_used
         user.hints_used += 1
-        used_hints.each { |hint| code.delete(hint) }
-        code.sample
+        used_hints.each { |hint| code_copy.delete(hint) }
+        code_copy.sample
       else
         false
       end
