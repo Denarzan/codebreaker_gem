@@ -117,7 +117,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context '#take_hint' do
     let(:user) { User.new('User1', 1) }
-    let(:code) { [5, 2, 6, 6] }
+    let(:code) { game.instance_variable_get(:@code) }
     let(:used_hints) { [] }
 
     it 'returns integer' do
