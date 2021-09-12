@@ -1,32 +1,28 @@
+require_relative 'show_content'
+
 class User
   attr_reader :name, :difficulty, :hints_total, :attempts_total
   attr_accessor :hints_used, :attempts_used
+
+  DIFFICULTY = {
+    easy: { attempts: 15, hints: 2 },
+    medium: { attempts: 10, hints: 1 },
+    hell: { attempts: 5, hints: 1 }
+  }.freeze
 
   def initialize(name, difficulty)
     @name = name
     @difficulty = difficulty
     @hints_used = 0
     @attempts_used = 0
-    check_difficulty(difficulty)
+    set_total_fields
   end
 
   private
 
-  def check_difficulty(difficulty)
-    case difficulty
-    when 0
-      set_total_fields(2, 15)
-    when 1
-      set_total_fields(1, 10)
-    when 2
-      set_total_fields(1, 5)
-    else
-      false
-    end
-  end
-
-  def set_total_fields(hints_total, attempts_total)
-    @hints_total = hints_total
-    @attempts_total = attempts_total
+  def set_total_fields
+    difficulty = DIFFICULTY.keys[@difficulty]
+    @hints_total = DIFFICULTY[difficulty][:hints]
+    @attempts_total = DIFFICULTY[difficulty][:attempts]
   end
 end

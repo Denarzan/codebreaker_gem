@@ -5,6 +5,8 @@ require_relative 'db_methods'
 require_relative 'user'
 module NewSuperCodebreaker2021
   class Game
+    attr_reader :code
+
     include Validate
     include ShowContent
     include DBMethods
@@ -40,17 +42,15 @@ module NewSuperCodebreaker2021
       return validate_user_code(code) unless code.to_i.zero?
 
       symbol_code = code.to_sym
-      GUESS_COMMANDS.include?(symbol_code) ? symbol_code : false
+      GUESS_COMMANDS.include?(symbol_code) ? symbol_code : nil
     end
 
     def take_hint(user, used_hints)
-      if user.hints_total > user.hints_used
-        user.hints_used += 1
-        used_hints.each { |hint| @code_copy.delete(hint) }
-        @code_copy.sample
-      else
-        false
-      end
+      return unless user.hints_total > user.hints_used
+
+      user.hints_used += 1
+      used_hints.each { |hint| @code_copy.delete(hint) }
+      @code_copy.sample
     end
 
     def after_game_commands(command)
@@ -62,27 +62,34 @@ module NewSuperCodebreaker2021
     end
 
     def compare_codes(user_code)
-      matches, unnecessary_numbers = number_on_right_place(user_code)
-      number_in_secret_code(user_code, matches, unnecessary_numbers)
+      matches, user_code, code_copy = number_on_right_place(user_code)
+      number_in_secret_code(user_code, matches, code_copy)
     end
 
     private
 
     def number_on_right_place(user_code)
+      code_copy = @code.dup
       matches = []
-      unnecessary_numbers = []
       user_code.each_index do |i|
-        if @code[i] == user_code[i]
-          matches.unshift('+')
-          unnecessary_numbers << user_code[i]
-        end
+        next unless @code[i] == user_code[i]
+
+        matches.unshift('+')
+        user_code[i] = nil
+        code_copy[i] = false
       end
-      [matches, unnecessary_numbers]
+      [matches, user_code, code_copy]
     end
 
-    def number_in_secret_code(user_code, matches, unnecessary_numbers)
+    def number_in_secret_code(user_code, matches, code_copy)
+      amount_numbers_in_secret_code = Hash.new(0)
+      amount_numbers_in_user_code = Hash.new(0)
+      code_copy.each { |number| amount_numbers_in_secret_code[number] += 1 }
       user_code.each do |element|
-        matches.push('-') if @code.include?(element) && !unnecessary_numbers.include?(element)
+        if code_copy.include?(element) && amount_numbers_in_user_code[element] < amount_numbers_in_secret_code[element]
+          matches.push('-')
+          amount_numbers_in_user_code[element] += 1
+        end
       end
       matches
     end

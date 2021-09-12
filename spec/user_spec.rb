@@ -4,7 +4,7 @@ require_relative '../lib/user'
 RSpec.describe User do
   context '#initialize' do
     it 'sets attempts and hints automatically' do
-      user = User.new('User', 1)
+      user = User.new(FFaker::Name.name, 1)
       expect(defined? user.attempts_total).to eq('method')
       expect(defined? user.hints_total).to eq('method')
     end
@@ -31,12 +31,6 @@ RSpec.describe User do
       user = User.new('User', 2)
       expect(user.attempts_used).to eq(0)
       expect(user.hints_used).to eq(0)
-    end
-
-    it 'sets attempts and hints to nil unknown level' do
-      user = User.new('User', 5)
-      expect(user.attempts_total).to eq(nil)
-      expect(user.hints_total).to eq(nil)
     end
 
     it 'can change used attempts and hints' do

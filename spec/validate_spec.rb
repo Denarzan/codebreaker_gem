@@ -10,11 +10,11 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     end
 
     it 'should return false if name is too short' do
-      expect(game.validate_name('Ян')).to eq(false)
+      expect(game.validate_name('Ян')).to be_nil
     end
 
     it 'should return false if name is too long' do
-      expect(game.validate_name('Mega Ultra Giga Super Long Name')).to eq(false)
+      expect(game.validate_name('Mega Ultra Giga Super Long Name')).to be_nil
     end
   end
 
@@ -25,18 +25,18 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     end
 
     it 'should return false if code with letters' do
-      expect(game.validate_user_code('abcd')).to eq(false)
-      expect(game.validate_user_code('123o')).to eq(false)
+      expect(game.validate_user_code('abcd')).to be_nil
+      expect(game.validate_user_code('123o')).to be_nil
     end
 
     it "should return false if length isn't 4" do
-      expect(game.validate_user_code('123456789')).to eq(false)
-      expect(game.validate_user_code('123')).to eq(false)
+      expect(game.validate_user_code('123456789')).to be_nil
+      expect(game.validate_user_code('123')).to be_nil
     end
 
     it "should return false if numbers aren't between 1 and 6" do
-      expect(game.validate_user_code('8987')).to eq(false)
-      expect(game.validate_user_code('1237')).to eq(false)
+      expect(game.validate_user_code('8987')).to be_nil
+      expect(game.validate_user_code('1237')).to be_nil
     end
   end
 end
