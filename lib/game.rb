@@ -11,6 +11,7 @@ module NewSuperCodebreaker2021
 
     def initialize
       @code = generate_code
+      @code_copy = @code.dup
     end
 
     GUESS_COMMANDS = %i[hint rules exit].freeze
@@ -36,20 +37,17 @@ module NewSuperCodebreaker2021
     end
 
     def user_guess(code)
-      if code.to_i != 0
-        validate_user_code(code)
-      elsif GUESS_COMMANDS.include?(code.to_sym)
-        code.to_sym
-      else false
-      end
+      return validate_user_code(code) unless code.to_i.zero?
+
+      symbol_code = code.to_sym
+      GUESS_COMMANDS.include?(symbol_code) ? symbol_code : false
     end
 
     def take_hint(user, used_hints)
-      code_copy = @code.dup
       if user.hints_total > user.hints_used
         user.hints_used += 1
-        used_hints.each { |hint| code_copy.delete(hint) }
-        code_copy.sample
+        used_hints.each { |hint| @code_copy.delete(hint) }
+        @code_copy.sample
       else
         false
       end
@@ -64,27 +62,27 @@ module NewSuperCodebreaker2021
     end
 
     def compare_codes(user_code)
-      matches, u_char = number_on_right_place(user_code)
-      number_in_secret_code(user_code, matches, u_char)
+      matches, unnecessary_numbers = number_on_right_place(user_code)
+      number_in_secret_code(user_code, matches, unnecessary_numbers)
     end
 
     private
 
     def number_on_right_place(user_code)
       matches = []
-      u_char = []
+      unnecessary_numbers = []
       user_code.each_index do |i|
         if @code[i] == user_code[i]
           matches.unshift('+')
-          u_char << user_code[i]
+          unnecessary_numbers << user_code[i]
         end
       end
-      [matches, u_char]
+      [matches, unnecessary_numbers]
     end
 
-    def number_in_secret_code(user_code, matches, u_char)
+    def number_in_secret_code(user_code, matches, unnecessary_numbers)
       user_code.each do |element|
-        matches.push('-') if @code.include?(element) && !u_char.include?(element)
+        matches.push('-') if @code.include?(element) && !unnecessary_numbers.include?(element)
       end
       matches
     end
