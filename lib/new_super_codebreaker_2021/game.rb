@@ -1,15 +1,12 @@
-require 'yaml'
-require_relative 'validate'
-require_relative 'show_content'
-require_relative 'db_methods'
-require_relative 'user'
+require_relative '../loader'
+
 module NewSuperCodebreaker2021
   class Game
-    attr_reader :code
-
-    include Validate
-    include ShowContent
     include DBMethods
+    include ShowContent
+    include Validate
+
+    attr_reader :code
 
     def initialize
       @code = generate_code

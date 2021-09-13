@@ -1,6 +1,4 @@
 require 'spec_helper'
-require_relative '../lib/new_super_codebreaker_2021'
-require_relative '../lib/user'
 
 MATCHING = { place: '+', presence: '-' }.freeze
 
@@ -118,7 +116,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
   end
 
   context '#take_hint' do
-    let(:user) { User.new(FFaker::Name.name, 0) }
+    let(:user) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
     let(:code) { game.instance_variable_get(:@code) }
     let(:used_hints) { [] }
     let(:hint) { game.take_hint(user, used_hints) }

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_relative '../lib/new_super_codebreaker_2021'
 
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }

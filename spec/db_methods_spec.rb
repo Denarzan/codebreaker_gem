@@ -1,10 +1,8 @@
 require 'spec_helper'
-require_relative '../lib/new_super_codebreaker_2021'
-require_relative '../lib/user'
 
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }
-  let(:user) { User.new(FFaker::Name.name, 0) }
+  let(:user) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
   let(:file) { 'rating.yml' }
 
   context '#save' do

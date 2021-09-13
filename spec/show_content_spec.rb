@@ -1,13 +1,11 @@
 require 'spec_helper'
-require_relative '../lib/new_super_codebreaker_2021'
-require_relative '../lib/user'
 
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }
   let(:file) { 'test.yml' }
-  let(:user1) { User.new(FFaker::Name.name, 1) }
-  let(:user2) { User.new(FFaker::Name.name, 0) }
-  let(:user3) { User.new(FFaker::Name.name, 2) }
+  let(:user1) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 1) }
+  let(:user2) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
+  let(:user3) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 2) }
 
   after do
     File.delete(file) if File.file?(file)
