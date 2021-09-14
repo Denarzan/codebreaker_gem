@@ -7,4 +7,4 @@ SimpleCov.start do
   add_filter 'vendor'
 end
 
-require_relative '../lib/loader'
+require_relative '../lib/new_super_codebreaker_2021'

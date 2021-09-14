@@ -1,5 +1,3 @@
-require_relative '../loader'
-
 module NewSuperCodebreaker2021
   class Game
     include DBMethods

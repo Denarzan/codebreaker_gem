@@ -2,8 +2,6 @@ lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'new_super_codebreaker_2021/version'
 
-
-
 Gem::Specification.new do |spec|
   spec.name          = 'new_super_codebreaker_2021'
   spec.version       = NewSuperCodebreaker2021::VERSION
@@ -12,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['README.md', 'lib/**/*']
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib/new_super_codebreaker_2021']
+  spec.require_paths = ['lib']
   spec.license       = 'MIT'
   spec.summary       = 'New game codebreaker!'
   spec.description   = 'Game where you need to guess the secret code'
