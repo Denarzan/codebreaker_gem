@@ -3,6 +3,7 @@ require 'ffaker'
 
 SimpleCov.start do
   add_filter(%r{/spec/})
+  add_filter('vendor')
   minimum_coverage 100
 end
 
