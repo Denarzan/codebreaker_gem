@@ -17,7 +17,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context '#validate_user_code' do
     it "should return code in array if it's correct" do
-      expect(game.validate_user_code('1234')).to eq([1, 2, 3, 4])
+      expect(game.validate_user_code('1235')).to eq([1, 2, 3, 5])
       expect(game.validate_user_code('5555')).to eq([5, 5, 5, 5])
     end
 
