@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe NewSuperCodebreaker2021::User do
   let(:user0) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
   let(:user1) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 1) }

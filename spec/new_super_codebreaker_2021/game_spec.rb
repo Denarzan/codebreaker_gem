@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 MATCHING = { place: '+', presence: '-' }.freeze
 
 RSpec.describe NewSuperCodebreaker2021::Game do

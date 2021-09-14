@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.7'
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
   spec.add_development_dependency 'terminal-table', '~> 3.0.1'
+  spec.add_development_dependency 'undercover', '~> 0.4.3'
 end

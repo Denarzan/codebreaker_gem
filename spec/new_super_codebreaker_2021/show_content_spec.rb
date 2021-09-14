@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }
   let(:file) { 'test.yml' }
