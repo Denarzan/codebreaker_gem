@@ -1,18 +1,19 @@
-# frozen_string_literal: true
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'new_super_codebreaker_2021/version'
 
-require_relative 'lib/new_super_codebreaker_2021/version'
-require 'rake'
+
 
 Gem::Specification.new do |spec|
   spec.name          = 'new_super_codebreaker_2021'
   spec.version       = NewSuperCodebreaker2021::VERSION
   spec.authors       = ['Nazar Dakhno']
   spec.email         = ['dakhnonazar@gmail.com']
-  spec.files = FileList['lib/**/*.rb',
-                        'bin/*',
-                        '[A-Z]*'].to_a
+  spec.files = Dir['README.md', 'lib/**/*']
+  spec.bindir        = 'exe'
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ['lib/new_super_codebreaker_2021']
   spec.license       = 'MIT'
-
   spec.summary       = 'New game codebreaker!'
   spec.description   = 'Game where you need to guess the secret code'
   spec.homepage      = 'https://rubygems.org/gems/new_super_codebreaker_2021'
