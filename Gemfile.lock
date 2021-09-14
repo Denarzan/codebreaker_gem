@@ -76,6 +76,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.10.0)
   rubocop (~> 1.7)
+  rugged (~> 0.27.5)
   simplecov (~> 0.21.2)
   terminal-table (~> 3.0.1)
   undercover (~> 0.4.3)
