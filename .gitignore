@@ -9,3 +9,4 @@
 .idea/
 *.gem
 rating.yml
+/vendor/
