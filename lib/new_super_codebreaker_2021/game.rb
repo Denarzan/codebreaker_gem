@@ -4,18 +4,18 @@ module NewSuperCodebreaker2021
     include ShowContent
     include Validate
 
-    attr_reader :code
-
-    def initialize
-      @code = generate_code
-      @code_copy = @code.dup
-    end
+    attr_accessor :code
 
     GUESS_COMMANDS = %i[hint rules exit].freeze
     START_COMMANDS = %i[start rules stats exit].freeze
     DIFFICULTY_COMMANDS = %i[easy medium hell exit].freeze
     AFTER_GAME_COMMANDS = %i[start save exit].freeze
     YES_NO_COMMANDS = %i[yes no].freeze
+
+    def initialize
+      @code = generate_code
+      @code_copy = @code.dup
+    end
 
     def chose_command(command)
       check_input(command, START_COMMANDS)
@@ -81,12 +81,21 @@ module NewSuperCodebreaker2021
       amount_numbers_in_user_code = Hash.new(0)
       code_copy.each { |number| amount_numbers_in_secret_code[number] += 1 }
       user_code.each do |element|
-        if code_copy.include?(element) && amount_numbers_in_user_code[element] < amount_numbers_in_secret_code[element]
-          matches.push('-')
-          amount_numbers_in_user_code[element] += 1
-        end
+        next unless include_element?(code_copy, element) &&
+                    less_amount_of_element?(amount_numbers_in_user_code, amount_numbers_in_secret_code, element)
+
+        matches.push('-')
+        amount_numbers_in_user_code[element] += 1
       end
       matches
+    end
+
+    def include_element?(given_array, element)
+      given_array.include? element
+    end
+
+    def less_amount_of_element?(first_hash, second_hash, element)
+      first_hash[element] < second_hash[element]
     end
 
     def generate_code

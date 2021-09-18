@@ -1,5 +1,6 @@
 RSpec.describe NewSuperCodebreaker2021::Game do
   let(:game) { described_class.new }
+
   context '#validate_name' do
     it 'should return name if it is valid' do
       expect(game.validate_name('Nazar')).to eq('Nazar')

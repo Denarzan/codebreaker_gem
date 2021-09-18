@@ -65,10 +65,10 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context '#initialize' do
     it 'should generate array with code' do
-      expect(game.code.is_a?(Array)).to eq(true)
+      expect(game.code).to be_a Array
     end
     it 'should have integers in array' do
-      expect(game.code.map { |element| element.is_a? Integer }).to eq([true, true, true, true])
+      expect(game.code).to all be_a Integer
     end
 
     it 'should create array with length 4' do
@@ -78,10 +78,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     let(:arr) { game.code }
 
     it 'should have numbers between 1 and 6' do
-      expect(arr[0]).to be_between(1, 6)
-      expect(arr[1]).to be_between(1, 6)
-      expect(arr[2]).to be_between(1, 6)
-      expect(arr[3]).to be_between(1, 6)
+      expect(arr).to all be_between(1, 6).inclusive
     end
   end
 
@@ -113,13 +110,13 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
   context '#take_hint' do
     let(:user) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
-    let(:code) { game.instance_variable_get(:@code) }
+    let(:code) { game.code }
     let(:used_hints) { [] }
     let(:hint) { game.take_hint(user, used_hints) }
     let(:hints_before_test) { user.hints_used }
 
     it 'returns integer' do
-      expect(game.take_hint(user, used_hints)).to be_a Integer
+      expect(hint).to be_a Integer
     end
 
     it 'should not change the code' do
@@ -129,7 +126,7 @@ RSpec.describe NewSuperCodebreaker2021::Game do
     end
 
     it 'returns one number from code' do
-      expect(code.include?(game.take_hint(user, used_hints))).to be true
+      expect(code).to include(hint)
     end
 
     it 'returns different numbers after 2 hints' do
@@ -151,14 +148,11 @@ RSpec.describe NewSuperCodebreaker2021::Game do
   end
 
   context '#compare_codes' do
-    before do
-      game.instance_variable_set(:@code, [1, 3, 5, 6])
-    end
-
     context 'test some compares' do
       Helper::ARRAY_EXAMPLES.each do |item|
         it "when result is #{item[2]} if code is - #{item[0]}, guess is #{item[1]}" do
-          game.instance_variable_set(:@code, item[0])
+          # allow(game).to receive(:@code).and_return(item[0])
+          game.code = item[0]
           guess = item[1]
           expect(game.compare_codes(guess)).to eq item[2]
         end
@@ -166,7 +160,8 @@ RSpec.describe NewSuperCodebreaker2021::Game do
 
       Helper::HASH_EXAMPLES.each do |secret_code, user_input|
         it "when result is #{user_input.values[0]} if code is - #{secret_code}, guess is #{user_input.keys[0]}" do
-          game.instance_variable_set(:@code, secret_code)
+          # allow(game).to receive(:@code).and_return(secret_code)
+          game.code = secret_code
           guess = user_input.keys[0]
           expect(game.compare_codes(guess)).to eq user_input.values[0]
         end

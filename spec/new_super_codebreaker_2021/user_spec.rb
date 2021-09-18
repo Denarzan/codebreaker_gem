@@ -2,6 +2,7 @@ RSpec.describe NewSuperCodebreaker2021::User do
   let(:user0) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 0) }
   let(:user1) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 1) }
   let(:user2) { NewSuperCodebreaker2021::User.new(FFaker::Name.name, 2) }
+
   context '#initialize' do
     it 'sets attempts and hints automatically' do
       expect(defined? user0.attempts_total).to eq('method')
