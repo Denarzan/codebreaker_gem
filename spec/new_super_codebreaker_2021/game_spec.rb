@@ -148,20 +148,22 @@ RSpec.describe NewSuperCodebreaker2021::Game do
   end
 
   context '#compare_codes' do
-    context 'test some compares' do
+    let(:game_double) { instance_double(NewSuperCodebreaker2021::Game) }
+
+    context 'test compares with array examples' do
       Helper::ARRAY_EXAMPLES.each do |item|
         it "when result is #{item[2]} if code is - #{item[0]}, guess is #{item[1]}" do
-          # allow(game).to receive(:@code).and_return(item[0])
-          game.code = item[0]
+          allow_any_instance_of(NewSuperCodebreaker2021::Game).to receive(:generate_code).and_return(item[0])
           guess = item[1]
           expect(game.compare_codes(guess)).to eq item[2]
         end
       end
+    end
 
+    context 'test compares with hash examples' do
       Helper::HASH_EXAMPLES.each do |secret_code, user_input|
         it "when result is #{user_input.values[0]} if code is - #{secret_code}, guess is #{user_input.keys[0]}" do
-          # allow(game).to receive(:@code).and_return(secret_code)
-          game.code = secret_code
+          allow_any_instance_of(NewSuperCodebreaker2021::Game).to receive(:generate_code).and_return(secret_code)
           guess = user_input.keys[0]
           expect(game.compare_codes(guess)).to eq user_input.values[0]
         end

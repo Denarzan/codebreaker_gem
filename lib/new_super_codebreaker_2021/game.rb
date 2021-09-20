@@ -4,7 +4,7 @@ module NewSuperCodebreaker2021
     include ShowContent
     include Validate
 
-    attr_accessor :code
+    attr_reader :code
 
     GUESS_COMMANDS = %i[hint rules exit].freeze
     START_COMMANDS = %i[start rules stats exit].freeze
@@ -79,13 +79,13 @@ module NewSuperCodebreaker2021
     def number_in_secret_code(user_code, matches, code_copy)
       amount_numbers_in_secret_code = Hash.new(0)
       amount_numbers_in_user_code = Hash.new(0)
-      code_copy.each { |number| amount_numbers_in_secret_code[number] += 1 }
+      code_copy.each { |number| amount_numbers_in_secret_code[number.to_s] += 1 }
       user_code.each do |element|
         next unless include_element?(code_copy, element) &&
                     less_amount_of_element?(amount_numbers_in_user_code, amount_numbers_in_secret_code, element)
 
         matches.push('-')
-        amount_numbers_in_user_code[element] += 1
+        amount_numbers_in_user_code[element.to_s] += 1
       end
       matches
     end
@@ -94,8 +94,8 @@ module NewSuperCodebreaker2021
       given_array.include? element
     end
 
-    def less_amount_of_element?(first_hash, second_hash, element)
-      first_hash[element] < second_hash[element]
+    def less_amount_of_element?(amount_numbers_in_user_code, amount_numbers_in_secret_code, element)
+      amount_numbers_in_user_code[element.to_s] < amount_numbers_in_secret_code[element.to_s]
     end
 
     def generate_code

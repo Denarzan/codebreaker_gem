@@ -1,3 +1,3 @@
 module NewSuperCodebreaker2021
-  VERSION = '0.4.9'.freeze
+  VERSION = '0.5.1'.freeze
 end

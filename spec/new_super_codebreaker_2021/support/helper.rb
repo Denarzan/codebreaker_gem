@@ -1,6 +1,6 @@
-MATCHING = { place: '+', presence: '-' }.freeze
-
 module Helper
+  MATCHING = { place: '+', presence: '-' }.freeze
+
   ARRAY_EXAMPLES =
     [
       [[6, 5, 4, 1], [6, 5, 4, 1], %w[+ + + +]],
